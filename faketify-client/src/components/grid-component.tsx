@@ -1,12 +1,20 @@
 import {useState} from "react";
 import { SongsList } from "./songs-list-component";
 import { SongPlayer } from "./song-player-component";
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import {IconButton } from "@mui/material";
 
 export function GridComponent() {
     
     return(
-        <>
-            <div className = "container-fluid fill">
+    <div className = "card">
+        <div className="card">
+            <div className="card-header text-center">Faketify</div>
+            <div className="card-body container-fluid fill">
                 <div className="row">
                     <div className="col-3">
                         <SongsList />
@@ -16,6 +24,28 @@ export function GridComponent() {
                     </div>
                 </div>
             </div>
-        </>
+            <div className="card-footer container-fluid fill">
+                <div className="row">
+                    <div className="col">
+
+                    </div>
+                    <div className="col d-flex align-items-center flex-row-reverse">
+                        <IconButton size="large"><SkipPreviousIcon /></IconButton>
+                        <IconButton size="large"><ShuffleIcon /></IconButton>
+                    </div>
+                    <div className="col-1 d-flex justify-content-center" style={{width :"50px", height: "50px"}}>
+                        <IconButton size="large"><PlayArrowIcon /></IconButton>
+                    </div>
+                    <div className="col d-flex align-items-center">
+                        <IconButton size="large"><SkipNextIcon /></IconButton>
+                        <IconButton size="large"><RestartAltIcon /></IconButton>
+                    </div>
+                    <div className="col">
+                                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     )
 }

@@ -15,11 +15,11 @@ export function GridComponent() {
         <div className="card">
             <div className="card-header text-center">Faketify</div>
             <div className="card-body container-fluid fill">
-                <div className="row">
-                    <div className="col-3">
+                <div className="row align-items-center">
+                    <div className="col-3 align-items-center">
                         <SongsList />
                     </div>
-                    <div className="col-9">
+                    <div className="col-9 align-items-center">
                         <SongPlayer />
                     </div>
                 </div>

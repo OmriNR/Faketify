@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatSlideToggleModule }from '@angular/material/slide-toggle';
+import { SongsGridComponent } from '../components/songs-grid-component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggleModule],
+  imports: [RouterOutlet, SongsGridComponent],
   template:`
-  <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+  <songs-grid-component></songs-grid-component>
   `,
   styleUrl: './app.component.scss'
 })

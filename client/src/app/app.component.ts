@@ -5,7 +5,7 @@ import { SongsGridComponent } from '../components/songs-grid-component';
   selector: 'app-root',
   imports: [RouterOutlet, SongsGridComponent],
   template:`
-  <songs-grid-component></songs-grid-component>
+  <songs-grid></songs-grid>
   `,
   styleUrl: './app.component.scss'
 })

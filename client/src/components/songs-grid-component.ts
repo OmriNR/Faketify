@@ -1,73 +1,158 @@
 import { Component } from "@angular/core";
-
+import { HttpClient } from "@angular/common/http";
 import { AgGridAngular } from "ag-grid-angular";
-import type { ColDef, ICellRendererParams } from "ag-grid-community";
-import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+import { AgChartsEnterpriseModule } from "ag-charts-enterprise";
+import {
+  CellSelectionOptions,
+  ClientSideRowModelModule,
+  ColDef,
+  ColGroupDef,
+  DefaultMenuItem,
+  GetContextMenuItems,
+  GetContextMenuItemsParams,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  MenuItemDef,
+  ModuleRegistry,
+  ValidationModule,
+} from "ag-grid-community";
+import {
+  CellSelectionModule,
+  ClipboardModule,
+  ColumnMenuModule,
+  ContextMenuModule,
+  ExcelExportModule,
+  IntegratedChartsModule,
+} from "ag-grid-enterprise";
+import { ISong } from "../models/Song";
+ModuleRegistry.registerModules([
+  ClientSideRowModelModule,
+  ClipboardModule,
+  ExcelExportModule,
+  ColumnMenuModule,
+  ContextMenuModule,
+  CellSelectionModule,
+  IntegratedChartsModule.with(AgChartsEnterpriseModule),
+  ValidationModule /* Development Only */,
+]);
 
-ModuleRegistry.registerModules([AllCommunityModule]);
-
-interface ISong {
-    title: string;
-    artist: string;
-    album: number;
-    dateAdded: Date;
-    duration: string;
-}
 
 @Component({
-    selector: "songs-grid-component",
-    standalone: true,
-    imports: [AgGridAngular],
-    template: `
-    <div class="content" style="width: 100%; height: 100%;">
-      <!-- The AG Grid component, with Dimensions, CSS Theme, Row Data, and Column Definition -->
-      <ag-grid-angular
-        style="width: 100%; height: 100%;"
-        [rowData]="rowData"
-        [columnDefs]="colDefs"
-        [defaultColDef]="defaultColDef"
-      />
-    </div>
-    `
+  selector: "songs-grid",
+  standalone: true,
+  imports: [AgGridAngular],
+  template: `<ag-grid-angular
+    style="width: 100%; height: 100%;"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [cellSelection]="true"
+    [allowContextMenuWithControlKey]="true"
+    [getContextMenuItems]="getContextMenuItems"
+    [rowData]="rowData"
+    (gridReady)="onGridReady($event)"
+  /> `,
 })
 export class SongsGridComponent {
-    rowData: ISong[] = [
-        {title: "Song 1", artist: "Artist 1", album: 1, dateAdded: new Date(), duration: "3:45"},
-        {title: "Song 2", artist: "Artist 2", album: 2, dateAdded: new Date(), duration: "4:20"},
-        {title: "Song 3", artist: "Artist 3", album: 3, dateAdded: new Date(), duration: "2:50"},
-        {title: "Song 4", artist: "Artist 4", album: 4, dateAdded: new Date(), duration: "5:10"},
-        {title: "Song 5", artist: "Artist 5", album: 5, dateAdded: new Date(), duration: "3:30"},
-      ];
-    
-      // Column Definitions: Defines & controls grid columns.
-      colDefs: ColDef<ISong>[] = [
-        {
-          headerName: "",
-          cellRenderer: (params: ICellRendererParams) => {
-              const button = document.createElement("button");
-              button.innerText = "▶";
-              button.style.cursor = "pointer";
-              button.style.border = "none"; // Remove border
-              button.style.background = "transparent"; // Transparent background
-              button.style.fontSize = "16px"; // Adjust font size
-              button.style.padding = "0"; // Remove padding
-              button.style.margin = "0";
-              button.addEventListener("click", () => {
-                  alert(`Playing: ${params.data.title}`);
-              });
-              return button;
-          },
-          width: 50,
-          suppressSizeToFit: true,
-        },
-        { field: "title" },
-        { field: "artist" },
-        { field: "album" },
-        { field: "dateAdded" },
-        { field: "duration" },
-      ];
-    
-      defaultColDef: ColDef = {
-        flex: 1,
-      };
+  columnDefs: ColDef[] = [
+    {
+      "headerName": "",
+      field: "play",
+      cellRenderer: (params: any) => {
+        const button = document.createElement("button");
+        button.innerText = "▶️";
+        button.style.cursor = "pointer";
+        button.style.border = "none"; // Remove border
+        button.style.background = "none"; // Remove background
+        button.style.padding = "0"; // Remove padding
+        button.style.fontSize = "16px"; // Adjust font size
+        button.style.color = "#007bff"; // Optional: Add a color to match your theme
+        button.addEventListener("mouseover", () => {
+          button.style.color = "#0056b3"; // Optional: Hover effect
+        });
+        button.addEventListener("mouseout", () => {
+          button.style.color = "#007bff"; // Reset color on mouse out
+        });
+        button.addEventListener("click", () => {
+          console.log(`Playing song: ${params.data.title}`);
+          // Add your play logic here
+        });
+        return button;
+      },
+      width: 100
+    },
+    { field: "title"},
+    { field: "artist" },
+    { field: "album" },
+    { field: "dateAdded" },
+    { field: "duration"}
+  ];
+  defaultColDef: ColDef = {
+    flex: 1,
+    minWidth: 100,
+  };
+  rowData!: ISong[];
+
+  constructor(private http: HttpClient) {}
+
+  onGridReady(params: GridReadyEvent<ISong>) {
+    this.rowData = [
+      {
+        title: "Song 1",
+        artist: "Artist 1",
+        album: 1,
+        dateAdded: new Date("2023-01-01"),
+        duration: "3:30",
+      },
+      {
+        title: "Song 2",
+        artist: "Artist 2",
+        album: 2,
+        dateAdded: new Date("2023-02-01"),
+        duration: "4:00",
+      },
+      {
+        title: "Song 3",
+        artist: "Artist 3",
+        album: 3,
+        dateAdded: new Date("2023-03-01"),
+        duration: "2:45",
+      }
+    ]
+  }
+
+  getContextMenuItems = (
+    params: GetContextMenuItemsParams,
+  ):
+    | (DefaultMenuItem | MenuItemDef)[]
+    | Promise<(DefaultMenuItem | MenuItemDef)[]> => {
+    const result: (DefaultMenuItem | MenuItemDef)[] = [
+      {
+        // custom item
+        name: "Add to playlist",
+        action: () => {
+          console.log("Adding " + params.value);
+        }
+      },
+      {
+        name: "Remove from this playlist",
+        action: () => {
+          console.log("Removing " + params.value);
+        }
+      },
+      {
+        name: "Go to artist",
+        action: () => {
+          console.log("Going to " + params.value);
+        }
+      },
+      {
+        name: "Share",
+        action: () => {
+          console.log("Sharing " + params.value);
+        }
+      }
+    ]
+    return result;
+  };
 }

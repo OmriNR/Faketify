@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { AgGridAngular } from "ag-grid-angular";
 import { AgChartsEnterpriseModule } from "ag-charts-enterprise";
@@ -54,6 +54,8 @@ ModuleRegistry.registerModules([
   /> `,
 })
 export class SongsGridComponent {
+  @Input() songs: ISong[] = [];
+
   columnDefs: ColDef[] = [
     {
       "headerName": "",
@@ -91,34 +93,10 @@ export class SongsGridComponent {
     flex: 1,
     minWidth: 100,
   };
-  rowData!: ISong[];
+  rowData!: ISong[]
 
-  constructor(private http: HttpClient) {}
-
-  onGridReady(params: GridReadyEvent<ISong>) {
-    this.rowData = [
-      {
-        title: "Song 1",
-        artist: "Artist 1",
-        album: 1,
-        dateAdded: new Date("2023-01-01"),
-        duration: "3:30",
-      },
-      {
-        title: "Song 2",
-        artist: "Artist 2",
-        album: 2,
-        dateAdded: new Date("2023-02-01"),
-        duration: "4:00",
-      },
-      {
-        title: "Song 3",
-        artist: "Artist 3",
-        album: 3,
-        dateAdded: new Date("2023-03-01"),
-        duration: "2:45",
-      }
-    ]
+  onGridReady(params: GridReadyEvent) {
+    this.rowData = this.songs;
   }
 
   getContextMenuItems = (

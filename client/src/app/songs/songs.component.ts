@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { AgGridAngular } from "ag-grid-angular";
 import { AgChartsEnterpriseModule } from "ag-charts-enterprise";
@@ -37,23 +37,13 @@ ModuleRegistry.registerModules([
   ValidationModule /* Development Only */,
 ]);
 
-
 @Component({
-  selector: "songs-grid",
-  standalone: true,
+  selector: 'songs-grid',
   imports: [AgGridAngular],
-  template: `<ag-grid-angular
-    style="width: 100%; height: 100%;"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
-    [cellSelection]="true"
-    [allowContextMenuWithControlKey]="true"
-    [getContextMenuItems]="getContextMenuItems"
-    [rowData]="rowData"
-    (gridReady)="onGridReady($event)"
-  /> `,
+  templateUrl: './songs.component.html',
+  styleUrl: './songs.component.scss'
 })
-export class SongsGridComponent {
+export class SongsComponent {
   @Input() songs: ISong[] = [];
 
   columnDefs: ColDef[] = [

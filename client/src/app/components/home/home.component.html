@@ -1,1 +1,7 @@
-<playlist-card></playlist-card>`
+<mat-action-list>
+    @for (playlist of playlists; track playlist) {
+        <button mat-list-item>{{playlist.title}}</button>
+    }
+</mat-action-list>
+
+<playlist-card [playlist]="selectedPlaylist"></playlist-card>

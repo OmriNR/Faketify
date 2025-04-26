@@ -25,7 +25,7 @@ import {
   ExcelExportModule,
   IntegratedChartsModule,
 } from "ag-grid-enterprise";
-import { ISong } from "../models/Song";
+import { ISong } from "../../models/Song";
 ModuleRegistry.registerModules([
   ClientSideRowModelModule,
   ClipboardModule,

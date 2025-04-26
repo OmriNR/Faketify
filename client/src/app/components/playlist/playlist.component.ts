@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Playlist } from '../models/Playlist';
 import { MatCardModule } from '@angular/material/card';
 import { SongsComponent } from '../songs/songs.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+
+import { Playlist } from '../../models/Playlist';
 
 @Component({
   selector: 'playlist-card',

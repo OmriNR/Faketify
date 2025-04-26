@@ -1,0 +1,51 @@
+.playlist-card {
+  background-color: white; // Set the card's background to white
+  color: black; // Ensure all text inside the card is black
+}
+
+.mat-card-title {
+  color: black; // Explicitly set the title text color to black
+  font-weight: bold; // Make the title bold
+}
+
+.playlist-info {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px; // Add some spacing between the elements
+  align-items: center; // Vertically align the text
+}
+
+.volume-control {
+  display: flex;
+  align-items: center; /* Align the slider and icons vertically */
+  gap: 8px; /* Add spacing between the icons and the slider */
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: column; /* Stack the buttons and slider vertically */
+  align-items: center; /* Center the buttons and slider horizontally */
+  gap: 16px; /* Add spacing between the buttons and the slider */
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 8px; /* Add spacing between the buttons */
+}
+
+.time-slider-container {
+  display: flex;
+  align-items: center; /* Align the slider and time labels vertically */
+  gap: 8px; /* Add spacing between the time labels and the slider */
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+.time-label {
+  font-size: 14px; /* Adjust the font size for the time labels */
+  color: #666; /* Optional: Set a subtle color for the time labels */
+}
+
+.action-slider {
+  flex-grow: 1; /* Allow the slider to take up the remaining space */
+}

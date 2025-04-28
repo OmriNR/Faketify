@@ -103,4 +103,8 @@ export class HomeComponent {
     }];
 
     selectedPlaylist: Playlist | null = this.playlists[0];
+
+  selectPlaylist(playlist: Playlist) {
+    this.selectedPlaylist = playlist;
+  }
 }

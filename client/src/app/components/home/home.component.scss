@@ -1,3 +1,21 @@
-.mat-list-option{
-    background-color: black;
+.home-container {
+  display: flex; /* Enable flexbox layout */
+  gap: 16px; /* Add spacing between the list and the card */
+  align-items: flex-start; /* Align items at the top */
+}
+
+.playlist-item {
+    display: flex; /* Enable flexbox layout for items */
+    align-items: center; /* Center items vertically */
+    padding: 8px; /* Add padding for better spacing */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.playlist-item:hover {
+    background-color: #aaaaaa; /* Change background color on hover */
+}
+
+.playlist-card {
+  flex: 2; /* Allow the card to take up more space */
 }

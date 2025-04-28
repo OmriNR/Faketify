@@ -1,7 +1,15 @@
-<mat-action-list>
-    @for (playlist of playlists; track playlist) {
-        <button mat-list-item>{{playlist.title}}</button>
-    }
-</mat-action-list>
+<div class="home-container">
 
-<playlist-card [playlist]="selectedPlaylist"></playlist-card>
+  <mat-nav-list>
+    @for (playlist of playlists; track playlist) {
+      <mat-list-item class="playlist-item" clickable (click)="selectPlaylist(playlist)">
+        <h3 mat-line style="color: black;">{{ playlist.title }}</h3>
+      </mat-list-item>
+    }
+  </mat-nav-list>
+
+  <playlist-card
+    class="playlist-card"
+    [playlist]="selectedPlaylist"
+  ></playlist-card>
+</div>

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../../models/Playlist';
+import { ISong } from '../../models/Song';
 
 @Component({
   selector: 'playlist-card',
@@ -16,4 +17,8 @@ import { Playlist } from '../../models/Playlist';
 export class PlaylistComponent {
   @Input() playlist: Playlist | null = null;
   constructor() { }
+
+  onSongSelected(song: ISong): void {
+    console.log('Selected song:', song);
+  }
 }

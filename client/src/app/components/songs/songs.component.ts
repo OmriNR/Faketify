@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { AgGridAngular } from "ag-grid-angular";
 import { AgChartsEnterpriseModule } from "ag-charts-enterprise";
@@ -15,6 +15,7 @@ import {
   GridReadyEvent,
   MenuItemDef,
   ModuleRegistry,
+  RowClickedEvent,
   ValidationModule,
 } from "ag-grid-community";
 import {
@@ -45,6 +46,7 @@ ModuleRegistry.registerModules([
 })
 export class SongsComponent {
   @Input() songs: ISong[] = [];
+  @Output() selectedSong = new EventEmitter<ISong>();
 
   columnDefs: ColDef[] = [
     {
@@ -89,6 +91,9 @@ export class SongsComponent {
     this.rowData = this.songs;
   }
 
+  onRowClicked(event: RowClickedEvent): void {
+    this.selectedSong.emit(event.data);
+  }
   getContextMenuItems = (
     params: GetContextMenuItemsParams,
   ):

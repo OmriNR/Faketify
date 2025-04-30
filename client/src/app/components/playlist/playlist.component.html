@@ -8,7 +8,8 @@
   </mat-card-header>
   <mat-card-content>
     <div class="ag-theme-alpine" style="height: 350px; width: 100%;">
-      <songs-grid [songs]="playlist.songs"></songs-grid>
+      <songs-grid [songs]="playlist.songs" (selectedSong)="onSongSelected($event)">
+      </songs-grid>
     </div>
   </mat-card-content>
   <mat-card-actions>

@@ -16,9 +16,22 @@ import { ISong } from '../../models/Song';
 })
 export class PlaylistComponent {
   @Input() playlist: Playlist | null = null;
+  private audio: HTMLAudioElement | null = null;
   constructor() { }
 
   onSongSelected(song: ISong): void {
     console.log('Selected song:', song);
+    this.playSong(`assets/audio/${song.audioUrl}`); // Use the relative path
+  }
+
+  playSong(audioUrl: string): void {
+    console.log('Playing song...');
+    if (this.audio)
+      this.audio.pause();
+    
+    this.audio = new Audio(audioUrl);
+    this.audio.play().catch((error) => {
+      console.error('Error playing audio:', error);
+    });
   }
 }

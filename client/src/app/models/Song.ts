@@ -4,4 +4,5 @@ export interface ISong {
     album: string;
     dateAdded: Date;
     duration: string;
+    audioUrl: string;
 }

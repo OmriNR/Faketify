@@ -20,13 +20,15 @@ export class HomeComponent {
         artist: 'Artist Name',
         album: 'Album Name',
         dateAdded: new Date(),
-        duration: '3:45'
+        duration: '3:45',
+        audioUrl: 'song.mp3'
       }, {
         title: 'Song Title 2',
         artist: 'Artist Name 2',
         album: 'Album Name 2',
         dateAdded: new Date(),
-        duration: '4:20'
+        duration: '4:20',
+        audioUrl: 'song.mp3'
       }],
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -42,13 +44,15 @@ export class HomeComponent {
           artist: 'Artist Name',
           album: 'Album Name',
           dateAdded: new Date(),
-          duration: '3:45'
+          duration: '3:45',
+          audioUrl: 'song.mp3'
         }, {
           title: 'Song Title 2',
           artist: 'Artist Name 2',
           album: 'Album Name 2',
           dateAdded: new Date(),
-          duration: '4:20'
+          duration: '4:20',
+          audioUrl: 'song.mp3'
         }
       ],
       createdAt: new Date(),
@@ -65,13 +69,15 @@ export class HomeComponent {
           artist: 'Artist Name',
           album: 'Album Name',
           dateAdded: new Date(),
-          duration: '3:45'
+          duration: '3:45',
+          audioUrl: 'song.mp3'
         }, {
           title: 'Song Title 2',
           artist: 'Artist Name 2',
           album: 'Album Name 2',
           dateAdded: new Date(),
-          duration: '4:20'
+          duration: '4:20',
+          audioUrl: 'song.mp3'
         }
       ],
       createdAt: new Date(),
@@ -88,13 +94,15 @@ export class HomeComponent {
           artist: 'Artist Name',
           album: 'Album Name',
           dateAdded: new Date(),
-          duration: '3:45'
+          duration: '3:45',
+          audioUrl: 'song.mp3'
         }, {
           title: 'Song Title 2',
           artist: 'Artist Name 2',
           album: 'Album Name 2',
           dateAdded: new Date(),
-          duration: '4:20'
+          duration: '4:20',
+          audioUrl: 'song.mp3'
         }
       ],
       createdAt: new Date(),

@@ -3,6 +3,7 @@ import { songsRoutes } from "./controllers/songsRoutes";
 import { usersRoutes } from "./controllers/usersRoutes";
 import { playlistsRoutes } from "./controllers/playlistsRoutes";
 const PORT = 3049;
+import connectDB from "./database/connection";
 
 serve({
     port: PORT,
@@ -20,5 +21,7 @@ serve({
         }
     }
 });
+
+connectDB();
 
 console.log(`Server is running on http://localhost:${PORT}`);

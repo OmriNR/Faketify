@@ -134,3 +134,21 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+.xml
+
+# Rust build and toolchain files
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Rust toolchain files (optional, if you use rustup override)
+/rust-toolchain
+
+# JetBrains IDE (IntelliJ IDEA, CLion, etc.)
+.idea/
+*.iml
+
+# VSCode Rust extension settings (optional)
+.vscode/*.rs.bk
+
+/server/target/

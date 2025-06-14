@@ -18,11 +18,11 @@ pub fn create_router() -> Router {
     Router::new()
         .route("/api/healthchecker", get(health_check_handler))
         .route(
-                    "/api/todos",
+                    "/api/songs",
                     post(create_song_handler),
                 )
         .route(
-            "/api/todos/{id}",
+            "/api/songs/{id}",
             get(get_song_handler)
         )
         .with_state(db)

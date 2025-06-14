@@ -6,18 +6,17 @@ use tokio::sync::Mutex;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Todo {
+pub struct Song {
     pub id: Option<String>,
-    pub title: String,
-    pub content: String,
-    pub completed: Option<bool>,
+    pub name: String,
+    pub createdBy: String,
+    pub filePath: String,
     pub createdAt: Option<DateTime<Utc>>,
-    pub updatedAt: Option<DateTime<Utc>>,
 }
 
-pub type DB = Arc<Mutex<Vec<Todo>>>;
+pub type DB = Arc<Mutex<Vec<Song>>>;
 
-pub fn todo_db() -> DB {
+pub fn song_db() -> DB {
     Arc::new(Mutex::new(vec![]))
 }
 
@@ -29,8 +28,8 @@ pub struct QueryOptions {
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone)]
-pub struct UpdateTodoSchema {
-    pub title: Option<String>,
-    pub content: Option<String>,
-    pub completed: Option<bool>,
+pub struct UpdateSongSchema {
+    pub name: Option<String>,
+    pub createdBy: Option<String>,
+    pub filePath: Option<String>,
 }

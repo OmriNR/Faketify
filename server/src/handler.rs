@@ -7,8 +7,8 @@ use axum::{
 use uuid::Uuid;
 
 use crate::{
-    model::{QueryOptions, Todo, UpdateTodoSchema, DB},
-    response::{SingleTodoResponse, TodoData, TodoListResponse}
+    model::{QueryOptions, Song, UpdateSongSchema, DB},
+    response::{SingleSongResponse, SongData, SongListResponse}
 };
 
 pub async fn health_check_handler() -> impl IntoResponse {
@@ -22,16 +22,16 @@ pub async fn health_check_handler() -> impl IntoResponse {
     Json(json_response)
 }
 
-pub async fn create_todo_handler(
+pub async fn create_song_handler(
     State(db): State<DB>,
-    Json(mut body): Json<Todo>,
+    Json(mut body): Json<Song>,
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let mut vec = db.lock().await;
 
-    if let Some(todo) = vec.iter().find(|todo| todo.title == body.title) {
+    if let Some(song) = vec.iter().find(|song| song.name == body.name && song.createdBy == body.createdBy) {
         let error_response = serde_json::json!({
             "status": "fail",
-            "message": format!("Todo with title: '{}' already exists", todo.title),
+            "message": format!("Song '{}' by {} already exists", song.name, song.createdBy),
         });
         return Err((StatusCode::CONFLICT, Json(error_response)));
     }
@@ -40,33 +40,31 @@ pub async fn create_todo_handler(
     let datetime = chrono::Utc::now();
 
     body.id = Some(uuid_id.to_string());
-    body.completed = Some(false);
     body.createdAt = Some(datetime);
-    body.updatedAt = Some(datetime);
 
-    let todo = body.to_owned();
+    let song = body.to_owned();
 
     vec.push(body);
 
-    let json_response = SingleTodoResponse {
+    let json_response = SingleSongResponse {
         status: "success".to_string(),
-        data: TodoData { todo}
+        data: SongData { song }
     };
 
     Ok((StatusCode::CREATED, Json(json_response)))
 }
 
-pub async fn get_todo_handler(
+pub async fn get_song_handler(
     Path(id): Path<String>,
     State(db): State<DB>,
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let id = id.to_string();
     let vec = db.lock().await;
 
-    if let Some(todo) = vec.iter().find(|todo| todo.id == Some(id.to_owned())) {
-        let json_response = SingleTodoResponse {
+    if let Some(song) = vec.iter().find(|song| song.id == Some(id.to_owned())) {
+        let json_response = SingleSongResponse {
             status: "success".to_string(),
-            data: TodoData { todo: todo.clone() }
+            data: SongData { song: song.clone() }
         };
 
         return  Ok((StatusCode::OK, Json(json_response)));
@@ -76,73 +74,6 @@ pub async fn get_todo_handler(
         "status": "fail",
         "message": format!("Todo with id: '{}' not found", id)
     });
-    Err((StatusCode::NOT_FOUND, Json(error_response)))
-}
-
-pub async fn edit_todo_handler(
-    Path(id): Path<String>,
-    State(db): State<DB>,
-    Json(body): Json<UpdateTodoSchema>,
-) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
-    let id = id.to_string();
-    let mut vec = db.lock().await;
-
-    if let Some(todo) = vec.iter_mut().find(|todo| todo.id == Some(id.clone())) {
-        let datetime = chrono::Utc::now();
-        let title = body.title.to_owned().unwrap_or_else(|| todo.title.to_owned());
-        let content = body.content.to_owned().unwrap_or_else(|| todo.content.to_owned());
-        let completed = body.completed.unwrap_or(todo.completed.unwrap());
-        let payload = Todo {
-            id: todo.id.to_owned(),
-            title: if !title.is_empty() {
-                title
-            } else {
-                todo.title.to_owned()
-            },
-            content: if !content.is_empty() {
-                content
-            } else {
-                todo.content.to_owned()
-            },
-            completed: Some(completed),
-            createdAt: todo.createdAt,
-            updatedAt: Some(datetime)
-        };
-        *todo = payload;
-
-        let json_response = SingleTodoResponse {
-            status: "success".to_string(),
-            data: TodoData { todo: todo.clone() }
-        };
-
-        Ok((StatusCode::OK, Json(json_response)))
-    } else {
-        let error_response = serde_json::json!({
-            "status": "fail",
-            "message": format!("Todo with ID: {} not found", id)
-        });
-
-        Err((StatusCode::NOT_FOUND, Json(error_response)))
-    }
-}
-
-pub async fn delete_todo_handler(
-    Path(id): Path<Uuid>,
-    State(db): State<DB>,
-) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
-    let id = id.to_string();
-    let mut vec = db.lock().await;
-
-    if let Some(pos) = vec.iter().position(|todo| todo.id == Some(id.to_owned())) {
-        vec.remove(pos);
-        return Ok((StatusCode::NO_CONTENT, Json(serde_json::json!(""))));
-    }
-    
-    let error_response = serde_json::json!({
-        "status": "fail",
-        "message": format!("Todo with ID: {} not found", id)
-    });
-    
     Err((StatusCode::NOT_FOUND, Json(error_response)))
 }
 

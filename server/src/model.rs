@@ -25,12 +25,26 @@ pub struct Playlist {
     pub createdBy: String
 }
 
+#[allow(non_snake_case)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct User {
+    pub id: Option<String>,
+    pub name: String,
+    pub password: String,
+    pub ownedPlaylists: Vec<String>,
+    pub followedUsers: Vec<String>,
+    pub createdAt: Option<DateTime<Utc>>,
+    pub updatedAt: Option<DateTime<Utc>>,
+}
+
 pub type SongsDB = Arc<Mutex<Vec<Song>>>;
 pub type PlaylistsDB = Arc<Mutex<Vec<Playlist>>>;
+pub type UsersDB = Arc<Mutex<Vec<User>>>;
 pub fn song_db() -> SongsDB {
     Arc::new(Mutex::new(vec![]))
 }
 pub fn playlist_db() -> PlaylistsDB { Arc::new(Mutex::new(vec![])) }
+pub fn user_db() -> UsersDB { Arc::new(Mutex::new(vec![])) }
 
 #[derive(Debug, Deserialize, Default)]
 pub struct QueryOptions {
@@ -52,4 +66,13 @@ pub struct UpdatePlaylistSchema {
     pub name: Option<String>,
     pub songs: Option<Vec<String>>,
     pub createdBy: Option<String>
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct UpdateUserSchema {
+    pub name: Option<String>,
+    pub password: Option<String>,
+    pub ownedPlaylists: Option<Vec<String>>,
+    pub followedUsers: Option<Vec<String>>,
 }

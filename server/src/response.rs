@@ -1,4 +1,5 @@
 use crate::model::Song;
+use crate::model::Playlist;
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -17,10 +18,13 @@ pub struct SingleSongResponse {
     pub status: String,
     pub data: SongData
 }
+#[derive(Serialize, Debug)]
+pub struct PlaylistData {
+    pub playlist: Playlist
+}
 
 #[derive(Serialize, Debug)]
-pub struct SongListResponse {
+pub struct SinglePlaylistResponse {
     pub status: String,
-    pub results: usize,
-    pub todos: Vec<Song>
+    pub data: PlaylistData
 }

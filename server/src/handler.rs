@@ -10,9 +10,9 @@ use crate::{
     model::{Song, SongsDB},
     model::{ Playlist, PlaylistsDB},
     model::{ User, UsersDB},
-    response::{SingleSongResponse, SongData},
-    response::{SinglePlaylistResponse, PlaylistData},
-    response::{UserResponse, UserData} 
+    response::{SingleSongResponse},
+    response::{SinglePlaylistResponse, PlaylistsResponse},
+    response::{UserResponse} 
 };
 use crate::model::{UpdatePlaylistSchema, UpdateUserSchema};
 
@@ -53,7 +53,7 @@ pub async fn create_song_handler(
 
     let json_response = SingleSongResponse {
         status: "success".to_string(),
-        data: SongData { song }
+        data: song 
     };
 
     Ok((StatusCode::CREATED, Json(json_response)))
@@ -69,7 +69,7 @@ pub async fn get_song_handler(
     if let Some(song) = vec.iter().find(|song| song.id == Some(id.to_owned())) {
         let json_response = SingleSongResponse {
             status: "success".to_string(),
-            data: SongData { song: song.clone() }
+            data: song.clone() 
         };
 
         return  Ok((StatusCode::OK, Json(json_response)));
@@ -89,7 +89,7 @@ pub async fn get_playlist_handler(Path(id): Path<String>, State(db): State<Playl
     if let Some(playlist) = vec.iter().find(|playlist| playlist.id == Some(id.to_owned())) {
         let json_response = SinglePlaylistResponse {
             status: "success".to_string(),
-            data: PlaylistData { playlist: playlist.clone() }
+            data: playlist.clone() 
         };
 
         return  Ok((StatusCode::OK, Json(json_response)));
@@ -102,6 +102,16 @@ pub async fn get_playlist_handler(Path(id): Path<String>, State(db): State<Playl
     Err((StatusCode::NOT_FOUND, Json(error_response)))
 }
 
+pub async fn get_all_playlists_handler(State(db): State<PlaylistsDB>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
+    let vec = db.lock().await;
+    
+    let json_response = PlaylistsResponse {
+        status: "success".to_string(),
+        data: vec.clone()
+    };
+    
+    return Ok((StatusCode::OK, Json(json_response)));
+}
 pub async fn create_playlist_handler(State(db): State<PlaylistsDB>, Json(mut body): Json<Playlist>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let mut vec = db.lock().await;
 
@@ -126,7 +136,7 @@ pub async fn create_playlist_handler(State(db): State<PlaylistsDB>, Json(mut bod
 
     let json_response = SinglePlaylistResponse {
         status: "success".to_string(),
-        data: PlaylistData { playlist }
+        data: playlist 
     };
 
     Ok((StatusCode::CREATED, Json(json_response)))
@@ -157,7 +167,7 @@ pub async fn edit_playlist_handler(Path(id): Path<String>, State(db): State<Play
         
         let json_response = SinglePlaylistResponse {
             status: "success".to_string(),
-            data: PlaylistData { playlist: playlist.clone()}
+            data: playlist.clone()
         };
 
         Ok((StatusCode::OK, Json(json_response)))
@@ -212,7 +222,7 @@ pub async fn create_user_handler(State(db): State<UsersDB>, Json(mut body): Json
 
     let json_response = UserResponse {
         status: "success".to_string(),
-        data: UserData { user }
+        data: user 
     };
 
     Ok((StatusCode::CREATED, Json(json_response)))
@@ -225,7 +235,7 @@ pub async fn get_user_handler(Path(id): Path<String>, State(db): State<UsersDB>)
     if let Some(user) = vec.iter().find(|user| user.id == Some(id.to_owned())) {
         let json_response = UserResponse {
             status: "success".to_string(),
-            data: UserData { user: user.clone() }
+            data: user.clone() 
         };
 
         return  Ok((StatusCode::OK, Json(json_response)));
@@ -261,7 +271,7 @@ pub async fn edit_user_handler(Path(id): Path<String>, State(db): State<UsersDB>
 
         let json_response = UserResponse {
             status: "success".to_string(),
-            data: UserData { user: user.clone()}
+            data: user.clone()
         };
 
         Ok((StatusCode::OK, Json(json_response)))
@@ -282,7 +292,7 @@ pub async fn does_user_exist_handler(Path(username): Path<String>, State(db): St
     if let Some(user) = vec.iter().find(|user| user.name == username.to_owned()) {
         let json_response = UserResponse {
             status: "success".to_string(),
-            data: UserData { user: user.clone() }
+            data: user.clone() 
         };
 
         return  Ok((StatusCode::OK, Json(json_response)));

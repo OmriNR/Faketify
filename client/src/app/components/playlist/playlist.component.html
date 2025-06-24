@@ -1,14 +1,14 @@
 <mat-card class="playlist-card" *ngIf="playlist">
   <mat-card-header>
-    <mat-card-title>{{playlist.title}}</mat-card-title>
+    <mat-card-title>{{playlist.name}}</mat-card-title>
     <div class="playlist-info">
-      <p>{{playlist.userId}}</p>
+      <p>{{playlist.createdBy}}</p>
       <p>{{playlist.songs.length}} Songs</p>
     </div>
   </mat-card-header>
   <mat-card-content>
     <div class="ag-theme-alpine" style="height: 350px; width: 100%;">
-      <songs-grid [songs]="playlist.songs" (selectedSong)="onSongSelected($event)">
+      <songs-grid [songsIds]="playlist.songs" (selectedSong)="onSongSelected($event)">
       </songs-grid>
     </div>
   </mat-card-content>

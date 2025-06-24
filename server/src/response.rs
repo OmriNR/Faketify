@@ -10,33 +10,25 @@ pub struct GenericResponse {
 }
 
 #[derive(Serialize, Debug)]
-pub struct SongData {
-    pub song: Song
-}
-
-#[derive(Serialize, Debug)]
 pub struct SingleSongResponse {
     pub status: String,
-    pub data: SongData
-}
-#[derive(Serialize, Debug)]
-pub struct PlaylistData {
-    pub playlist: Playlist
+    pub data: Song
 }
 
 #[derive(Serialize, Debug)]
 pub struct SinglePlaylistResponse {
     pub status: String,
-    pub data: PlaylistData
-}
-
-#[derive(Serialize, Debug)]
-pub struct UserData {
-    pub user: User
+    pub data: Playlist
 }
 
 #[derive(Serialize, Debug)]
 pub struct UserResponse {
     pub status: String,
-    pub data: UserData
+    pub data: User
+}
+
+#[derive(Serialize, Debug)]
+pub struct PlaylistsResponse {
+    pub status: String,
+    pub data: Vec<Playlist>
 }

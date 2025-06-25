@@ -10,8 +10,7 @@ import {
   DefaultMenuItem,
   GetContextMenuItems,
   GetContextMenuItemsParams,
-  GridApi,
-  GridOptions,
+
   GridReadyEvent,
   MenuItemDef,
   ModuleRegistry,
@@ -23,10 +22,12 @@ import {
   ClipboardModule,
   ColumnMenuModule,
   ContextMenuModule,
-  ExcelExportModule,
+  ExcelExportModule, GridOptions,
   IntegratedChartsModule,
 } from "ag-grid-enterprise";
 import { ISong } from "../../models/Song";
+import { SongsService} from "../../services/SongsService";
+
 ModuleRegistry.registerModules([
   ClientSideRowModelModule,
   ClipboardModule,
@@ -41,12 +42,24 @@ ModuleRegistry.registerModules([
 @Component({
   selector: 'songs-grid',
   imports: [AgGridAngular],
+  providers: [SongsService],
   templateUrl: './songs.component.html',
   styleUrl: './songs.component.scss'
 })
-export class SongsComponent {
-  @Input() songs: ISong[] = [];
+export class SongsComponent implements OnInit {
+
+  @Input() songsIds: string[] = [];
   @Output() selectedSong = new EventEmitter<ISong>();
+
+  rowData: ISong[] = [];
+
+  constructor(private songsService: SongsService) {}
+
+  ngOnInit() {
+    this.songsService.getSongsByIds(this.songsIds).then(result => {
+      this.rowData = result;
+    });
+  }
 
   columnDefs: ColDef[] = [
     {
@@ -75,21 +88,14 @@ export class SongsComponent {
       },
       width: 100
     },
-    { field: "title"},
-    { field: "artist" },
-    { field: "album" },
-    { field: "dateAdded" },
-    { field: "duration"}
+    { field: "name"},
+    { field: "createdBy" },
+    { field: "createdAt"}
   ];
   defaultColDef: ColDef = {
     flex: 1,
     minWidth: 100,
   };
-  rowData!: ISong[]
-
-  onGridReady(params: GridReadyEvent) {
-    this.rowData = this.songs;
-  }
 
   onRowClicked(event: RowClickedEvent): void {
     this.selectedSong.emit(event.data);

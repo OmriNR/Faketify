@@ -1,11 +1,8 @@
-import { ISong } from './Song';
-
-export interface Playlist {
-    id: string;
-    title: string;
-    description: string;
-    songs: ISong[];
-    createdAt: Date;
-    updatedAt: Date;
-    userId: string;
+export interface IPlaylist {
+    id: string,
+    name: string,
+    songs: string[],
+    createdAt: Date,
+    updatedBy: Date,
+    createdBy: string,
 }

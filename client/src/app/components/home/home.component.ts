@@ -4,6 +4,8 @@ import { MatListModule } from '@angular/material/list';
 import { IPlaylist } from '../../models/Playlist';
 import { PlaylistService} from "../../services/PlaylistsService";
 import { CommonModule } from '@angular/common';
+import { PlaylistDialogComponent} from "../playlist-dialog/playlist-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-home',
@@ -14,10 +16,11 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private playlistService: PlaylistService) {}
+  constructor(private playlistService: PlaylistService, private dialog: MatDialog) {
+  }
 
 
-  playlists : IPlaylist[] = []
+  playlists: IPlaylist[] = []
   selectedPlaylist: IPlaylist | null = this.playlists[0];
 
   ngOnInit() {
@@ -28,5 +31,19 @@ export class HomeComponent implements OnInit {
 
   selectPlaylist(playlist: IPlaylist) {
     this.selectedPlaylist = playlist;
+  }
+
+  openCreatePlaylistDialog(): void {
+    const dialogRef = this.dialog.open(PlaylistDialogComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle the new playlist data
+        console.log('New playlist:', result);
+      }
+    });
+
   }
 }

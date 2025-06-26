@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Create New Playlist</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="playlistForm">
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Playlist Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter playlist name">
+            <mat-error *ngIf="playlistForm.get('name')?.errors?.['required']">
+                Playlist name is required
+            </mat-error>
+            <mat-error *ngIf="playlistForm.get('name')?.errors?.['minlength']">
+                Playlist name must be at least 3 characters long
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+/
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!playlistForm.valid">
+        Create Playlist
+    </button>
+</mat-dialog-actions>/

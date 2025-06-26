@@ -1,32 +1,30 @@
-# Use the official Rust image as the base image
+# 1. Build stage
 FROM rust:latest as builder
 
-# Create a new directory for the application
-WORKDIR /usr/src/app
+# Install musl-tools for static linking
+RUN apt-get update && apt-get install -y musl-tools
 
-# Update rust and cargo to the latest version
-RUN rustup update
+WORKDIR /app
 
-# Copy the Cargo.toml and Cargo.lock files
-COPY Cargo.toml Cargo.lock ./
+# Add your source code
+COPY . .
 
-# Copy the source code
-COPY src ./src
+# Add the musl target
+RUN rustup target add x86_64-unknown-linux-musl
 
-# Build the application in release mode
-RUN cargo build --release
+# Build the release binary for musl target
+RUN cargo build --release --target x86_64-unknown-linux-musl
 
-# Create a new stage with a minimal image
-FROM debian:bullseye-slim
+# 2. Runtime stage (very small image)
+FROM debian:buster-slim
 
-# Install necessary SSL certificates
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
 
-# Copy the built binary from the builder stage
-COPY --from=builder /usr/src/app/target/release/server /usr/local/bin/app
+# Copy the statically linked binary from the builder stage
+COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/faketify-server .
 
-# Expose the port your application runs on (typically 3000 for Axum)
-EXPOSE 3000
+# Expose your API port (change if needed)
+EXPOSE 8080
 
-# Run the application
-CMD ["app"]
+# Run the binary
+CMD ["./faketify-server"]

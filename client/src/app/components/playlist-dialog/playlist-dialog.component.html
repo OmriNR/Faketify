@@ -12,6 +12,12 @@
                 Playlist name must be at least 3 characters long
             </mat-error>
         </mat-form-field>
+
+        <div class="file-drop-zone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <mat-icon>cloud_upload</mat-icon>
+            <p>Drag and drop your songs here</p>
+            <p *ngIf="uploadedFiles.length > 0">Files selected: {{uploadedFiles.length}}</p>
+        </div>
     </form>
 </mat-dialog-content>
 /

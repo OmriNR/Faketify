@@ -1,8 +1,8 @@
 export interface IPlaylist {
-    id: string,
+    id: string | null,
     name: string,
     songs: string[],
     createdAt: Date,
-    updatedBy: Date,
+    updatedAt: Date,
     createdBy: string,
 }

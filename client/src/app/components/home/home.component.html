@@ -1,16 +1,1 @@
-<div class="home-container">
-
-  <mat-nav-list>
-      <button (click)="openCreatePlaylistDialog()">Create playlist</button>
-      @for (playlist of playlists; track playlist) {
-          <mat-list-item class="playlist-item" clickable (click)="selectPlaylist(playlist)">
-            <h3 mat-line style="color: black;">{{ playlist.name }}</h3>
-          </mat-list-item>
-      }
-  </mat-nav-list>
-
-  <playlist-card
-    class="playlist-card"
-    [playlist]="selectedPlaylist"
-  ></playlist-card>
-</div>
+<p>home works!</p>

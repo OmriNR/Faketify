@@ -1,5 +1,5 @@
 export interface ISong {
-    id: string,
+    id: string | null,
     name: string,
     createdBy: string,
     filePath: string,

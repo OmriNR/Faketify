@@ -45,13 +45,13 @@ export class PlaylistDialogComponent {
 
     const files = Array.from(event.dataTransfer?.files || []);
 
-    if (files.every(file => file.type === 'audio/mp3')) {
+    if (files.every(file => file.type === 'audio/mpeg')) {
       if (files.length > 0) {
         this.uploadedFiles = [...this.uploadedFiles, ...files];
       }
     }
     else
-      alert('Only mp3 files are allowed');
+      alert('Only mpeg files are allowed');
   }
 
   onSubmit(): void {

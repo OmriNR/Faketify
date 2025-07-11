@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { RouterOutlet, provideRouter } from '@angular/router';
+import { ContainerComponent} from "./components/container/container.component";
+import {routes} from "./app.routes";
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomeComponent],
+  imports: [ContainerComponent],
   template:`
-  <app-home></app-home>`,
+  <app-container></app-container>`,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {

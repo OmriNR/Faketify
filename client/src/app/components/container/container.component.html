@@ -1,0 +1,49 @@
+<div class="home-container">
+    <mat-nav-list>
+        <mat-card class="app-title-card">
+            <mat-card-content>
+                <div class="app-title-content">
+                    <mat-icon>music_note</mat-icon>
+                    <div class="app-title-text">
+                        <h1>Faketify</h1>
+                        <p>The best music player</p>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-list-item class="playlist-item" [routerLink]="['/home']" routerLinkActive="active">
+            <h3 mat-line style="color: black;">Home</h3>
+        </mat-list-item>
+
+        <mat-list-item class="playlist-item" [routerLink]="['/search']" routerLinkActive="active">
+            <h3 mat-line style="color: black;">Search</h3>
+        </mat-list-item>
+
+        <mat-list-item class="playlist-item" [routerLink]="['/library']" routerLinkActive="active">
+            <h3 mat-line style="color: black;">Library</h3>
+        </mat-list-item>
+
+        <mat-list-item class="playlist-item" [routerLink]="['/profile']" routerLinkActive="active">
+            <h3 mat-line style="color: black;">Profile</h3>
+        </mat-list-item>
+
+        <div class="nav-footer">
+            <button mat-flat-button style="margin-bottom: 20px">+ Create Playlist</button>
+            <mat-card class="user-card">
+                <mat-card-content>
+                    <mat-icon>account_circle</mat-icon>
+                    <div class="user-welcome">
+                        <p class="welcome-text">Welcome back</p>
+                        <p class="user-name">user</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-nav-list>
+
+    <!-- Add router outlet -->
+    <div class="content-area">
+        <router-outlet></router-outlet>
+    </div>
+</div>

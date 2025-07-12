@@ -1,4 +1,168 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.scss */
+:root {
+  --deep-purple: #311b92;
+  --purple-light: #673ab7;
+  --purple-lighter: #7c4dff;
+  --purple-bg: #f5f3ff;
+  --menu-bg: #1a0f4f;
+  --menu-hover: #2a1b6f;
+  --menu-text: #ffffff;
+  --menu-active: #673ab7;
+}
 
-html, body { height: 100%; }
-body { height: 100%; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  background-color: var(--purple-bg);
+}
+
+body {
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+
+h1 {
+  color: var(--deep-purple);
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  color: var(--purple-light);
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+.container {
+  background-color: var(--purple-bg);
+  min-height: 100%;
+  padding: 20px;
+}
+
+.popular-playlists {
+  margin-top: 32px;
+  padding: 0 24px;
+
+  table {
+    width: 100%;
+    background-color: #ffffff;
+
+    th {
+      font-weight: 500;
+      color: var(--deep-purple);
+      background-color: var(--purple-bg);
+    }
+
+    td {
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    tr:hover {
+      background-color: var(--purple-bg);
+    }
+  }
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--purple-light);
+}
+
+.playlist-cards {
+  .mat-mdc-card {
+    border-left: 4px solid var(--purple-lighter);
+  }
+}
+
+.cards {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+// Dark theme menu styles
+mat-nav-list {
+  background-color: var(--menu-bg);
+  color: var(--menu-text);
+
+  a {
+    color: var(--menu-text);
+  }
+}
+
+.playlist-item {
+  color: var(--menu-text);
+
+  &:hover {
+    background-color: var(--menu-hover);
+  }
+}
+
+.active {
+  background-color: var(--menu-active);
+}
+
+// Recent playlists styles
+.recent-playlists {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 16px 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.playlist-card {
+  flex: 1;
+  max-width: 300px;
+  background-color: #f8f9fa;
+
+  mat-card-header {
+    margin-bottom: 16px;
+    color: rgba(0, 0, 0, 0.87);
+
+    .mat-mdc-card-title {
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    .mat-mdc-card-subtitle {
+      color: rgba(0, 0, 0, 0.6);
+      font-weight: 400;
+    }
+  }
+
+  mat-card-content {
+    p {
+      margin-bottom: 8px;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 400;
+    }
+  }
+
+  mat-card-actions {
+    padding: 16px;
+  }
+
+  &:hover {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+}
+
+

@@ -1,1 +1,215 @@
-<p>home works!</p>
+<h1>Hello</h1>
+<h2>User</h2>
+<div class="container">
+    <!-- Button Row -->
+    <div class="button-row">
+        <button mat-raised-button color="primary">
+            <mat-icon>favorite</mat-icon>
+            Liked Songs
+        </button>
+        <button mat-raised-button color="primary">
+            <mat-icon>shuffle</mat-icon>
+            Shuffle
+        </button>
+        <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Upload Song
+        </button>
+        <button mat-raised-button color="primary">
+            <mat-icon>queue_music</mat-icon>
+            New Playlist
+        </button>
+    </div>
+
+    <h2>Recently played</h2>
+    <div class="cards">
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Rock for Gym</mat-card-title>
+                <mat-card-subtitle>Created by John</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Lofi for studying</mat-card-title>
+                <mat-card-subtitle>Created by John</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Anime songs</mat-card-title>
+                <mat-card-subtitle>Created by John</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Best Rap of the 21st</mat-card-title>
+                <mat-card-subtitle>Created by Jane</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Chill Vibes</mat-card-title>
+                <mat-card-subtitle>Created by Mike</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <h2>Featured Playlists</h2>
+    <div class="cards">
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>My Favorites</mat-card-title>
+                <mat-card-subtitle>Created by John</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Workout Mix</mat-card-title>
+                <mat-card-subtitle>Created by Jane</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Chill Vibes</mat-card-title>
+                <mat-card-subtitle>Created by Mike</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>play_arrow</mat-icon> PLAY
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <h2>Featured Artists</h2>
+    <div class="cards">
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Ye</mat-card-title>
+                <mat-card-subtitle>Created by John</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>add</mat-icon> Follow
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>Lady Gaga</mat-card-title>
+                <mat-card-subtitle>Created by Jane</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>add</mat-icon> Follow
+                </button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="playlist-card">
+            <mat-card-header>
+                <mat-card-title>The Beatles</mat-card-title>
+                <mat-card-subtitle>Created by Mike</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-button color="primary">
+                    <mat-icon>add</mat-icon> Follow
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div class="popular-playlists">
+        <h2>Popular Playlists</h2>
+        <table mat-table [dataSource]="popularPlaylists" class="mat-elevation-z2">
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let playlist"> {{playlist.position}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let playlist"> {{playlist.name}} </td>
+            </ng-container>
+
+            <!-- Songs Column -->
+            <ng-container matColumnDef="songs">
+                <th mat-header-cell *matHeaderCellDef> Songs </th>
+                <td mat-cell *matCellDef="let playlist"> {{playlist.songs}} </td>
+            </ng-container>
+
+            <!-- Created By Column -->
+            <ng-container matColumnDef="createdBy">
+                <th mat-header-cell *matHeaderCellDef> Created By </th>
+                <td mat-cell *matCellDef="let playlist"> {{playlist.createdBy}} </td>
+            </ng-container>
+
+            <!-- Plays Column -->
+            <ng-container matColumnDef="plays">
+                <th mat-header-cell *matHeaderCellDef> Plays </th>
+                <td mat-cell *matCellDef="let playlist"> {{playlist.plays}} </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let playlist">
+                    <button mat-icon-button color="primary">
+                        <mat-icon>play_arrow</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent">
+                        <mat-icon>playlist_add</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+.button-group {
+  display: flex;
+  gap: 16px;
+  margin: 16px auto;
+  justify-content: center;
+  max-width: fit-content;
+}
+
+.selected {
+  background-color: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+button {
+  min-width: 100px;
+}
+
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.item-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Make sure cards have some minimum width */
+mat-card {
+  min-width: 200px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

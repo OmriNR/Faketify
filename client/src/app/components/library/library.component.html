@@ -1,1 +1,50 @@
-<p>library works!</p>
+<div class="button-group">
+    <button mat-button
+            [class.selected]="selectedButton === 'playlists'"
+            (click)="selectButton('playlists')">
+        Playlists
+    </button>
+
+    <button mat-button
+            [class.selected]="selectedButton === 'artists'"
+            (click)="selectButton('artists')">
+        Artists
+    </button>
+
+    <button mat-button
+            [class.selected]="selectedButton === 'albums'"
+            (click)="selectButton('albums')">
+        Albums
+    </button>
+</div>
+
+<div class="container">
+    <!-- Playlists -->
+    <div class="cards-grid" *ngIf="selectedButton === 'playlists'">
+        <mat-card class="item-card" *ngFor="let playlist of playlists">
+            <mat-card-header>
+                <mat-card-title>{{ playlist.name }}</mat-card-title>
+                <mat-card-subtitle>{{ playlist.tracks }} tracks</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </div>
+
+    <!-- Artists -->
+    <div class="cards-grid" *ngIf="selectedButton === 'artists'">
+        <mat-card class="item-card" *ngFor="let artist of artists">
+            <mat-card-header>
+                <mat-card-title>{{ artist.name }}</mat-card-title>
+            </mat-card-header>
+        </mat-card>
+    </div>
+
+    <!-- Albums -->
+    <div class="cards-grid" *ngIf="selectedButton === 'albums'">
+        <mat-card class="item-card" *ngFor="let album of albums">
+            <mat-card-header>
+                <mat-card-title>{{ album.name }}</mat-card-title>
+                <mat-card-subtitle>{{ album.artist }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>

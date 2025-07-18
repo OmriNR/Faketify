@@ -189,4 +189,14 @@ mat-nav-list {
   color: rgba(0, 0, 0, 0.6);
 }
 
+.item-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 

@@ -69,3 +69,35 @@
     }
   }
 }
+
+.home-container {
+  height: calc(100vh - 64px); /* Adjust 64px according to your header height */
+  overflow-y: auto;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Add some padding to the bottom to ensure last elements are visible when scrolling */
+.container {
+  padding-bottom: 20px;
+}
+
+/* Optional: Customize scrollbar appearance */
+.home-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.home-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.home-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.home-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

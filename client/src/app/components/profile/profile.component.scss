@@ -1,0 +1,43 @@
+.profile-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  margin-bottom: 20px;
+}
+
+.follower-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.followers-grid {
+  margin-top: 16px;
+}
+
+.follower-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s ease; /* Add smooth transition */
+
+  &:hover {
+    background-color: #dbdae6; /* Light gray background on hover */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+  }
+}
+
+.follower-avatar {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}

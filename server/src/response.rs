@@ -28,6 +28,12 @@ pub struct UserResponse {
 }
 
 #[derive(Serialize, Debug)]
+pub struct UsersResponse {
+    pub status: String,
+    pub data: Vec<User>
+}
+
+#[derive(Serialize, Debug)]
 pub struct PlaylistsResponse {
     pub status: String,
     pub data: Vec<Playlist>

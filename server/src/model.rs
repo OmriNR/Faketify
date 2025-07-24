@@ -35,6 +35,7 @@ pub struct User {
     pub followedUsers: Vec<String>,
     pub createdAt: Option<DateTime<Utc>>,
     pub updatedAt: Option<DateTime<Utc>>,
+    pub isUserArtist: bool
 }
 
 pub type SongsDB = Arc<Mutex<Vec<Song>>>;
@@ -75,4 +76,5 @@ pub struct UpdateUserSchema {
     pub password: Option<String>,
     pub ownedPlaylists: Option<Vec<String>>,
     pub followedUsers: Option<Vec<String>>,
+    pub isUserArtist: Option<bool>
 }

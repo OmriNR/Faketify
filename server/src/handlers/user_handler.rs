@@ -7,11 +7,8 @@ use axum::{
 use uuid::Uuid;
 
 use crate::{
-    model::{ User, UsersDB},
-    response::{UserResponse}
+    models::{User, UsersDB, UserResponse, UsersResponse, UpdateUserSchema}
 };
-
-use crate::model::{UpdateUserSchema};
 
 pub async fn create_user_handler(State(db): State<UsersDB>, Json(mut body): Json<User>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let mut vec = db.lock().await;

@@ -7,11 +7,9 @@ use axum::{
 use uuid::Uuid;
 
 use crate::{
-    model::{ Playlist, PlaylistsDB},
-    response::{SinglePlaylistResponse, PlaylistsResponse},
+    models::{Playlist, PlaylistsDB, UpdatePlaylistSchema, SinglePlaylistResponse, PlaylistsResponse}
 };
 
-use crate::model::{UpdatePlaylistSchema};
 
 pub async fn get_playlist_handler(Path(id): Path<String>, State(db): State<PlaylistsDB>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let id = id.to_string();

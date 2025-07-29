@@ -1,5 +1,4 @@
-mod model;
-mod response;
+mod models;
 mod route;
 mod handlers;
 

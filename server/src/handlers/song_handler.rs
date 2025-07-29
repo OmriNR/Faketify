@@ -7,8 +7,7 @@ use axum::{
 use uuid::Uuid;
 
 use crate::{
-    model::{Song, SongsDB},
-    response::{SingleSongResponse}
+    models::{Song, SongsDB, SingleSongResponse},
 };
 
 pub async fn create_song_handler(

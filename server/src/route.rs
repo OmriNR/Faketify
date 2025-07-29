@@ -5,7 +5,7 @@ use axum::{
 };
 
 use crate::{
-    model,
+    models::{song_db, playlist_db, user_db}
 };
 
 use crate::handlers::{
@@ -16,9 +16,9 @@ use crate::handlers::{
 };
 
 pub fn create_router() -> Router {
-    let songsDB = model::song_db();
-    let playlistsDB = model::playlist_db();
-    let usersDB = model::user_db();
+    let songsDB = song_db();
+    let playlistsDB = playlist_db();
+    let usersDB = user_db();
 
     Router::new()
         .route("/api/songs", post(create_song_handler))

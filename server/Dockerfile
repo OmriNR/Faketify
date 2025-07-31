@@ -21,10 +21,10 @@ FROM debian:buster-slim
 WORKDIR /app
 
 # Copy the statically linked binary from the builder stage
-COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/faketify-server .
+COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/server .
 
 # Expose your API port (change if needed)
 EXPOSE 8080
 
 # Run the binary
-CMD ["./faketify-server"]
+CMD ["./server"]

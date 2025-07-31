@@ -41,6 +41,47 @@ pub async fn get_all_playlists_handler(State(db): State<PlaylistsDB>) -> Result<
 
     return Ok((StatusCode::OK, Json(json_response)));
 }
+
+pub async fn get_playlists_by_created_user_handler(Path(created_by): Path<String>, State(db): State<PlaylistsDB>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
+    let created_by = created_by.to_string();
+    let vec = db.lock().await;
+
+    let user_playlists: Vec<Playlist> = vec.iter().filter(|playlist| playlist.createdBy == created_by).map(|playlist| playlist.to_owned()).collect();
+
+    if user_playlists.is_empty() {
+        let error_response = serde_json::json!({
+            "status": "fail",
+            "message": format!("No playlists found for user: {}", created_by)
+        });
+        return Err((StatusCode::NOT_FOUND, Json(error_response)));
+    }
+
+    let json_response = PlaylistsResponse {
+        status: "success".to_string(),
+        data: user_playlists
+    };
+    Ok((StatusCode::OK, Json(json_response)))
+}
+
+pub async fn get_playlists_by_ids_handler(State(db): State<PlaylistsDB>, Json(ids): Json<Vec<String>>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
+    let vec = db.lock().await;
+
+    let user_playlists: Vec<Playlist> = ids.iter().filter_map(|id| vec.iter().find(|playlist| playlist.id == Some(id.to_owned()))).map(|playlist| playlist.to_owned()).collect();
+
+    if user_playlists.is_empty() {
+        let error_response = serde_json::json!({
+            "status": "fail",
+            "message": format!("No playlists found for ids: {:?}", ids)
+        });
+    }
+
+    let json_response = PlaylistsResponse {
+        status: "success".to_string(),
+        data: user_playlists
+    };
+    Ok((StatusCode::OK, Json(json_response)))
+}
+
 pub async fn create_playlist_handler(State(db): State<PlaylistsDB>, Json(mut body): Json<Playlist>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let mut vec = db.lock().await;
 

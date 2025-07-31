@@ -8,7 +8,6 @@ use tokio::sync::Mutex;
 pub struct User {
     pub id: Option<String>,
     pub name: String,
-    pub password: String,
     pub ownedPlaylists: Vec<String>,
     pub followedUsers: Vec<String>,
     pub createdAt: Option<DateTime<Utc>>,
@@ -23,7 +22,6 @@ pub fn user_db() -> UsersDB { Arc::new(Mutex::new(vec![])) }
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct UpdateUserSchema {
     pub name: Option<String>,
-    pub password: Option<String>,
     pub ownedPlaylists: Option<Vec<String>>,
     pub followedUsers: Option<Vec<String>>,
     pub isUserArtist: Option<bool>

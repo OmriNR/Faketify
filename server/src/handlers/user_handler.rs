@@ -40,6 +40,16 @@ pub async fn create_user_handler(State(db): State<UsersDB>, Json(mut body): Json
     Ok((StatusCode::CREATED, Json(json_response)))
 }
 
+pub async fn get_users_handler(State(db): State<UsersDB>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
+    let vec = db.lock().await;
+    
+    let json_response = UsersResponse {
+        status: "success".to_string(),
+        data: vec.clone()
+    };
+    Ok((StatusCode::OK, Json(json_response)))
+}
+
 pub async fn get_user_handler(Path(id): Path<String>, State(db): State<UsersDB>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let id = id.to_string();
     let vec = db.lock().await;
@@ -73,7 +83,6 @@ pub async fn edit_user_handler(Path(id): Path<String>, State(db): State<UsersDB>
         let payload = User {
             id: user.id.to_owned(),
             name: user.name.clone(),
-            password: user.password.clone(),
             followedUsers: followedUsers.to_owned(),
             ownedPlaylists: ownedPlaylists.to_owned(),
             isUserArtist: user.isUserArtist,

@@ -34,8 +34,15 @@
                 <mat-card-content>
                     <mat-icon>account_circle</mat-icon>
                     <div class="user-welcome">
-                        <p class="welcome-text">Welcome back</p>
-                        <p class="user-name">user</p>
+                        @if (isUserLoggedIn()) {
+                            <p class="welcome-text">Welcome back</p>
+                            <p class="user-name">{{this.getCurrentUser()?.name}}</p>
+                        } @else {
+                            <p class="welcome-text">Welcome</p>
+                            <p class="user-name">Guest</p>
+                            <button (click)="openSignInDialog()" mat-flat-button>Sign in</button>
+                            <button (click)="openSignUpDialog()" mat-flat-button>Sign up</button>
+                        }
                     </div>
                 </mat-card-content>
             </mat-card>

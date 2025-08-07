@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {SignInDialogComponent, SimpleDialogData} from "../components/dialogs/sign-in-dialog/sign-in-dialog.component";
+import {SignInDialogComponent} from "../components/dialogs/sign-in-dialog/sign-in-dialog.component";
+import {SignUpDialogComponent} from "../components/dialogs/sign-up-dialog/sign-up-dialog.component";
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +9,21 @@ import {SignInDialogComponent, SimpleDialogData} from "../components/dialogs/sig
 export class DialogService {
     constructor(private dialog: MatDialog) {}
 
-    showMessage(data: SimpleDialogData) {
-        return this.dialog.open(SignInDialogComponent, {
+    showLogInDialog() {
+        this.dialog.open(SignInDialogComponent, {
             width: '400px',
-            data: data,
-            disableClose: false
+            disableClose: true,
+        }).afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
         });
+    }
+
+    showSignUpDialog() {
+        this.dialog.open(SignUpDialogComponent, {
+            width: '400px',
+            disableClose: true,
+        }).afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        })
     }
 }

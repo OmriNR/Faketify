@@ -29,17 +29,10 @@ export class ContainerComponent {
   }
 
   openSignInDialog(): void {
-    this.dialogService.showMessage({
-      title: "Sign In",
-      message: "Please sign in to continue",
-      closeButtonText: "Sign In"
-    })
+    this.dialogService.showLogInDialog();
   }
 
   openSignUpDialog(): void {
-    this.dialogService.showMessage({
-      title: "Sign Up",
-      message: "Please sign up to continue",
-      closeButtonText: "Sign Up"
-    })  }
+    this.dialogService.showSignUpDialog();
+  }
 }

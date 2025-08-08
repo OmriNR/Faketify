@@ -8,11 +8,12 @@ use tokio::sync::Mutex;
 pub struct User {
     pub id: Option<String>,
     pub name: String,
+    pub email: String,
+    pub password: String,
     pub ownedPlaylists: Vec<String>,
     pub followedUsers: Vec<String>,
     pub createdAt: Option<DateTime<Utc>>,
     pub updatedAt: Option<DateTime<Utc>>,
-    pub isUserArtist: bool
 }
 
 pub type UsersDB = Arc<Mutex<Vec<User>>>;

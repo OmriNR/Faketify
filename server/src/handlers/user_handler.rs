@@ -83,9 +83,10 @@ pub async fn edit_user_handler(Path(id): Path<String>, State(db): State<UsersDB>
         let payload = User {
             id: user.id.to_owned(),
             name: user.name.clone(),
+            password: user.password.clone(),
+            email: user.email.clone(),
             followedUsers: followedUsers.to_owned(),
             ownedPlaylists: ownedPlaylists.to_owned(),
-            isUserArtist: user.isUserArtist,
             createdAt: user.createdAt,
             updatedAt: Some(datetime),
         };

@@ -1,9 +1,12 @@
 .dialog-container {
   padding: 20px;
 }
-mat-dialog-content {
-  margin-bottom: 20px;
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
 }
-p {
-  margin: 0;
+
+mat-dialog-content {
+  min-width: 300px;
 }

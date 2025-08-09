@@ -14,7 +14,6 @@ import { DialogService} from "../../services/DialogService";
   imports: [MatListModule, CommonModule, MatButtonModule, MatCardModule, MatIconModule, RouterModule],
   templateUrl: './container.component.html',
   styleUrl: './container.component.scss',
-  providers: [CurrentUserService]
 })
 export class ContainerComponent {
   constructor(private currentUserService: CurrentUserService,

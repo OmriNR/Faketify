@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UsersService} from "../../../services/UsersService";
+import {IUser} from "../../../models/User";
 
 @Component({
   selector: 'app-sign-up-dialog',
@@ -19,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule
   ],
+  providers: [UsersService],
   templateUrl: './sign-up-dialog.component.html',
   styleUrl: './sign-up-dialog.component.scss'
 })
@@ -28,7 +31,8 @@ export class SignUpDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<SignUpDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private usersService: UsersService
   ) {
     this.signUpForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -39,7 +43,20 @@ export class SignUpDialogComponent {
 
   onSubmit(): void {
     if (this.signUpForm.valid) {
-      this.dialogRef.close(this.signUpForm.value);
+      let newUser : IUser = this.signUpForm.value;
+      newUser.ownedPlaylists = [];
+      newUser.followedUsers = [];
+
+      this.usersService.createUser(newUser).then(result => {
+        if (result.status === "success") {
+          let connectedUser : IUser = result.data;
+
+          this.dialogRef.close(connectedUser);
+        }
+        else {
+          alert(result.message);
+        }
+      })
     }
   }
 

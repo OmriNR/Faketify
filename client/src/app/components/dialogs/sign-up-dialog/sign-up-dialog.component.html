@@ -14,18 +14,10 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="full-width">
-                <mat-label>First Name</mat-label>
+                <mat-label>Name</mat-label>
                 <input matInput type="text" formControlName="name" required>
-                <mat-error *ngIf="signUpForm.get('firstname')?.hasError('required')">
-                    First name is required
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Last Name</mat-label>
-                <input matInput type="text" formControlName="name" required>
-                <mat-error *ngIf="signUpForm.get('lastname')?.hasError('required')">
-                    Last name is required
+                <mat-error *ngIf="signUpForm.get('name')?.hasError('required')">
+                    Name is required
                 </mat-error>
             </mat-form-field>
 

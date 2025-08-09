@@ -31,5 +31,9 @@ export class UsersService {
         return await lastValueFrom(this.http.put<Response>(url, updateUser));
     }
 
+    async doesUserExist(checkUser: IUser): Promise<Response> {
+        const url = `${this.config.faketifyService}/users/doesExist`;
 
+        return await lastValueFrom(this.http.post<Response>(url, checkUser));
+    }
 }

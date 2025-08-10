@@ -34,4 +34,13 @@ export class ContainerComponent {
   openSignUpDialog(): void {
     this.dialogService.showSignUpDialog();
   }
+
+  onCreatePlaylist(): void {
+    if (this.isUserLoggedIn()) {
+      this.dialogService.showCreatePlaylistDialog();
+    }
+    else {
+      this.dialogService.showGuestDialog();
+    }
+  }
 }

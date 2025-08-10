@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import {SignInDialogComponent} from "../components/dialogs/sign-in-dialog/sign-in-dialog.component";
 import {SignUpDialogComponent} from "../components/dialogs/sign-up-dialog/sign-up-dialog.component";
 import {GuestDialogComponent} from "../components/dialogs/guest-dialog/guest-dialog.component";
+import {CreatePlaylistDialogComponent} from "../components/dialogs/create-playlist-dialog/create-playlist-dialog.component";
 import {CurrentUserService} from "./CurrentUserService";
-
 @Injectable({
     providedIn: 'root'
 })
@@ -51,5 +51,14 @@ export class DialogService {
                 }
             });
         }
+    }
+
+    showCreatePlaylistDialog() {
+        this.dialog.open(CreatePlaylistDialogComponent, {
+            width: '400px',
+            disableClose: false,
+        }).afterClosed().subscribe(result => {
+
+        })
     }
 }

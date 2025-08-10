@@ -1,37 +1,41 @@
-
-<div class="profile-container" *ngIf="user">
-    <mat-card class="profile-card">
-        <mat-card-header>
-            <mat-card-title>
-                <h1>{{ user!.name }}'s Profile</h1>
-            </mat-card-title>
-            <mat-card-subtitle>
-                <div class="follower-count">
-                    <mat-icon>people</mat-icon>
-                    {{ user!.followedUsers.length }} followers
-                </div>
-            </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
-
-    <h2>Playlists</h2>
-    <div class="cards">
-        <mat-card class="item-card" *ngFor="let playlist of playlists">
+@if (isUserLoggedIn()) {
+    <div class="profile-container" *ngIf="user">
+        <mat-card class="profile-card">
             <mat-card-header>
-                <mat-card-title>{{ playlist.name }}</mat-card-title>
+                <mat-card-title>
+                    <h1>{{ user!.name }}'s Profile</h1>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <div class="follower-count">
+                        <mat-icon>people</mat-icon>
+                        {{ user!.followedUsers.length }} followers
+                    </div>
+                </mat-card-subtitle>
             </mat-card-header>
         </mat-card>
+
+        <h2>Playlists</h2>
+        <div class="cards">
+            <mat-card class="item-card" *ngFor="let playlist of playlists">
+                <mat-card-header>
+                    <mat-card-title>{{ playlist.name }}</mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
+
+        <h2>Followers</h2>
+        <div class="followers-grid">
+            <mat-grid-list cols="4" rowHeight="100px">
+                <mat-grid-tile *ngFor="let follower of followers">
+                    <div class="follower-tile">
+                        <mat-icon class="follower-avatar">account_circle</mat-icon>
+                        <span>{{ follower.name }}</span>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
     </div>
 
-    <h2>Followers</h2>
-    <div class="followers-grid">
-        <mat-grid-list cols="4" rowHeight="100px">
-            <mat-grid-tile *ngFor="let follower of followers">
-                <div class="follower-tile">
-                    <mat-icon class="follower-avatar">account_circle</mat-icon>
-                    <span>{{ follower.name }}</span>
-                </div>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </div>
-</div>
+} @else {
+    <h1>Please enter as a user</h1>
+}

@@ -3,17 +3,18 @@ import {MatButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { CommonModule } from "@angular/common";
 import { DialogService} from "../../services/DialogService";
+import { CurrentUserService } from "../../services/CurrentUserService";
 
 @Component({
   selector: 'app-library',
   imports: [MatButton, MatCardModule, CommonModule],
-  providers: [DialogService],
+  providers: [DialogService, CurrentUserService],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
 export class LibraryComponent implements OnInit {
 
-  constructor(private dialogService: DialogService) { }
+  constructor(private dialogService: DialogService, private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
       this.dialogService.showGuestDialog();
@@ -23,6 +24,10 @@ export class LibraryComponent implements OnInit {
 
   selectButton(button: string) {
     this.selectedButton = button;
+  }
+
+  isUserLoggedIn(): boolean {
+    return this.currentUserService.isLoggedIn();
   }
 
   artists: any[] = [

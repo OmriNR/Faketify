@@ -6,6 +6,7 @@ import { IUser } from '../../models/User';
 import { IPlaylist } from '../../models/Playlist';
 import {CommonModule} from "@angular/common";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {DialogService} from "../../services/DialogService";
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatGridListModule,
     CommonModule
   ],
+  providers: [DialogService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -24,9 +26,10 @@ export class ProfileComponent implements OnInit {
   playlists: IPlaylist[] | null = null;
   followers : IUser[] | null = null;
 
-  constructor() {}
+  constructor(private dialogService: DialogService) {}
 
   ngOnInit(): void {
+    this.dialogService.showGuestDialog();
     this.user = {
       id: '1',
       name: 'John Doe',

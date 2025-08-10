@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatButton } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { CommonModule } from "@angular/common";
+import { DialogService} from "../../services/DialogService";
 
 @Component({
   selector: 'app-library',
   imports: [MatButton, MatCardModule, CommonModule],
+  providers: [DialogService],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
-export class LibraryComponent {
+export class LibraryComponent implements OnInit {
+
+  constructor(private dialogService: DialogService) { }
+
+  ngOnInit(): void {
+      this.dialogService.showGuestDialog();
+  }
+
   selectedButton: string = '';
 
   selectButton(button: string) {

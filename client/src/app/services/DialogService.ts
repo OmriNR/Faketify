@@ -5,11 +5,13 @@ import {SignUpDialogComponent} from "../components/dialogs/sign-up-dialog/sign-u
 import {GuestDialogComponent} from "../components/dialogs/guest-dialog/guest-dialog.component";
 import {CreatePlaylistDialogComponent} from "../components/dialogs/create-playlist-dialog/create-playlist-dialog.component";
 import {CurrentUserService} from "./CurrentUserService";
+import {UsersService} from "./UsersService";
+
 @Injectable({
     providedIn: 'root'
 })
 export class DialogService {
-    constructor(private dialog: MatDialog, private currentUserService: CurrentUserService) {}
+    constructor(private dialog: MatDialog, private currentUserService: CurrentUserService, private userService: UsersService) {}
 
     showLogInDialog() {
         this.dialog.open(SignInDialogComponent, {
@@ -58,7 +60,13 @@ export class DialogService {
             width: '400px',
             disableClose: false,
         }).afterClosed().subscribe(result => {
+            let currentUser = this.currentUserService.getCurrentUser()!;
 
+            currentUser?.ownedPlaylists.push(result.id);
+
+            this.userService.updateUser(currentUser.id, currentUser).then(response => {
+                this.currentUserService.setCurrentUser(result.data)
+            });
         })
     }
 }

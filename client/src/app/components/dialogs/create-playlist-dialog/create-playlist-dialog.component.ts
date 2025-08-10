@@ -7,6 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrentUserService} from "../../../services/CurrentUserService";
+import { SongsService} from "../../../services/SongsService";
+import { PlaylistService} from "../../../services/PlaylistsService";
+import {ISong} from "../../../models/Song";
+import {IPlaylist} from "../../../models/Playlist";
 
 @Component({
   selector: 'app-create-playlist-dialog',
@@ -18,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       MatFormFieldModule,
       MatInputModule,
       MatButtonModule],
+  providers: [SongsService, PlaylistService],
   templateUrl: './create-playlist-dialog.component.html',
   styleUrl: './create-playlist-dialog.component.scss'
 })
@@ -29,7 +35,10 @@ export class CreatePlaylistDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CreatePlaylistDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private currentUserService: CurrentUserService,
+    private songsService: SongsService,
+    private playlistService: PlaylistService
   ) {
     this.createPlaylistForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -69,7 +78,49 @@ export class CreatePlaylistDialogComponent {
   }
 
   onSubmit(): void {
+    if (this.createPlaylistForm.valid) {
+      let formResult = this.createPlaylistForm.value;
+      let files: File[] = formResult.songs;
+      let playlistName: string = formResult.name;
 
+      let newSongsIds: string[] = [];
+      files.forEach(file => {
+        let newSong : ISong = {
+          id: null,
+          name: file.name,
+          createdBy: this.currentUserService.getCurrentUser()!.name,
+          filePath: "",
+          createdAt: new Date(),
+        };
+
+        this.songsService.createSong(newSong).then(result => {
+          if (result.status === "success") {
+            newSongsIds.push(result.data.id);
+          }
+          else {
+            alert(result.message);
+          }
+        })
+      });
+
+      let newPlaylist : IPlaylist = {
+        id: null,
+        name: playlistName,
+        songs: newSongsIds,
+        createdBy: this.currentUserService.getCurrentUser()!.name,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      this.playlistService.createPlaylist(newPlaylist).then(result => {
+        if (result.status === "success") {
+          this.dialogRef.close(result.data);
+        }
+        else {
+          alert(result.message);
+        }
+      })
+    }
   }
 
   onCancel(): void {

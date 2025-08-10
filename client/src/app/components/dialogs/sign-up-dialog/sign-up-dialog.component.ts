@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersService} from "../../../services/UsersService";
-import {IUser} from "../../../models/User";
+import { IUser } from "../../../models/User";
 
 @Component({
   selector: 'app-sign-up-dialog',

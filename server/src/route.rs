@@ -28,8 +28,9 @@ pub fn create_router() -> Router {
         .with_state(playlistsDB)
         
         .route("/api/users", post(create_user_handler)) 
-        .route("/api/users/{id}", get(get_user_handler).put(edit_user_handler).post(does_user_exist_handler))
+        .route("/api/users/{id}", get(get_user_handler).put(edit_user_handler))
         .route("/api/users/all", get(get_users_handler))
+        .route("/api/users/doesExist", post(does_user_exist_handler))
         .with_state(usersDB)
     
 }

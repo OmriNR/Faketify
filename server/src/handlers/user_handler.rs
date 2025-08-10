@@ -108,11 +108,12 @@ pub async fn edit_user_handler(Path(id): Path<String>, State(db): State<UsersDB>
     }
 }
 
-pub async fn does_user_exist_handler(Path(username): Path<String>, State(db): State<UsersDB>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
-    let username = username.to_string();
+pub async fn does_user_exist_handler(State(db): State<UsersDB>, Json(mut body): Json<User>) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
+    let password = body.password.to_owned();
+    let email = body.email.to_owned();
     let vec = db.lock().await;
 
-    if let Some(user) = vec.iter().find(|user| user.name == username.to_owned()) {
+    if let Some(user) = vec.iter().find(|user| user.password == password && user.email == email) {
         let json_response = UserResponse {
             status: "success".to_string(),
             data: user.clone()
@@ -123,7 +124,7 @@ pub async fn does_user_exist_handler(Path(username): Path<String>, State(db): St
 
     let error_response = serde_json::json!({
         "status": "fail",
-        "message": format!("User'{}' does not exist", username)
+        "message": "User not found"
     });
     Err((StatusCode::NOT_FOUND, Json(error_response)))
 }

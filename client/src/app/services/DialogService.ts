@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {SignInDialogComponent} from "../components/dialogs/sign-in-dialog/sign-in-dialog.component";
 import {SignUpDialogComponent} from "../components/dialogs/sign-up-dialog/sign-up-dialog.component";
+import {GuestDialogComponent} from "../components/dialogs/guest-dialog/guest-dialog.component";
 import {CurrentUserService} from "./CurrentUserService";
 
 @Injectable({
@@ -32,5 +33,23 @@ export class DialogService {
                 this.currentUserService.setCurrentUser(result);
             }
         })
+    }
+
+    showGuestDialog() {
+        if (!this.currentUserService.isLoggedIn()) {
+            this.dialog.open(GuestDialogComponent, {
+                width: '400px',
+                disableClose: false,
+            }).afterClosed().subscribe(result => {
+                if (result == 'signUp')
+                {
+                    this.showSignUpDialog();
+                }
+                else if (result == 'logIn')
+                {
+                    this.showLogInDialog();
+                }
+            });
+        }
     }
 }

@@ -1,0 +1,36 @@
+<div class="dialog-container">
+    <h2 mat-dialog-title>Create playlist</h2>
+    <form [formGroup]="createPlaylistForm" (ngSubmit)="onSubmit()">
+        <mat-dialog-content>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" required>
+                <mat-error *ngIf="createPlaylistForm.get('name')?.hasError('required')">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <div class="drop-zone"
+                 [class.drag-over]="dragOver"
+                 (dragover)="onDragOver($event)"
+                 (dragleave)="onDragLeave($event)"
+                 (drop)="onDrop($event)">
+                <p>Drag and drop MP3 files here</p>
+                <div *ngIf="uploadedFiles.length > 0" class="file-list">
+                    <p>Selected files:</p>
+                    <ul>
+                        <li *ngFor="let file of uploadedFiles">{{ file.name }}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end">
+            <button mat-button type="button" (click)="onCancel()">Cancel</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="createPlaylistForm.invalid">
+                Create Playlist
+            </button>
+        </mat-dialog-actions>
+    </form>
+</div>

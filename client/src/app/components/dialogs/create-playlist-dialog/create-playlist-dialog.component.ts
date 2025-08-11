@@ -114,7 +114,7 @@ export class CreatePlaylistDialogComponent {
 
       this.playlistService.createPlaylist(newPlaylist).then(result => {
         if (result.status === "success") {
-          this.dialogRef.close(result.data);
+          this.dialogRef.close('created');
         }
         else {
           alert(result.message);

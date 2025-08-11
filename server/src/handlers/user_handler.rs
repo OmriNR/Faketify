@@ -78,7 +78,6 @@ pub async fn edit_user_handler(Path(id): Path<String>, State(db): State<UsersDB>
         let datetime = chrono::Utc::now();
 
         let followedUsers = body.followedUsers.clone().unwrap_or_else(|| user.followedUsers.clone());
-        let ownedPlaylists = body.ownedPlaylists.clone().unwrap_or_else(|| user.ownedPlaylists.clone());
 
         let payload = User {
             id: user.id.to_owned(),
@@ -86,7 +85,6 @@ pub async fn edit_user_handler(Path(id): Path<String>, State(db): State<UsersDB>
             password: user.password.clone(),
             email: user.email.clone(),
             followedUsers: followedUsers.to_owned(),
-            ownedPlaylists: ownedPlaylists.to_owned(),
             createdAt: user.createdAt,
             updatedAt: Some(datetime),
         };

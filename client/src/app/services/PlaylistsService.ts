@@ -37,4 +37,9 @@ export class PlaylistService {
         const url = `${this.config.faketifyService}/playlists/${id}`;
         return await lastValueFrom(this.http.put<Response>(url, playlist));
     }
+
+    async getPlaylistsByUser(userName: string): Promise<Response> {
+        const url = `${this.config.faketifyService}/playlists/by_user/${userName}`;
+        return await lastValueFrom(this.http.get<Response>(url));
+    }
 }

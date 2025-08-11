@@ -8,7 +8,7 @@ import { CurrentUserService } from "../../services/CurrentUserService";
 @Component({
   selector: 'app-library',
   imports: [MatButton, MatCardModule, CommonModule],
-  providers: [DialogService, CurrentUserService],
+  providers: [DialogService],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {SignInDialogComponent} from "../components/dialogs/sign-in-dialog/sign-in-dialog.component";
 import {SignUpDialogComponent} from "../components/dialogs/sign-up-dialog/sign-up-dialog.component";
@@ -11,6 +11,7 @@ import {UsersService} from "./UsersService";
     providedIn: 'root'
 })
 export class DialogService {
+    playlistCreated = new EventEmitter<void>();
     constructor(private dialog: MatDialog, private currentUserService: CurrentUserService, private userService: UsersService) {}
 
     showLogInDialog() {
@@ -60,13 +61,8 @@ export class DialogService {
             width: '400px',
             disableClose: false,
         }).afterClosed().subscribe(result => {
-            let currentUser = this.currentUserService.getCurrentUser()!;
-
-            currentUser?.ownedPlaylists.push(result.id);
-
-            this.userService.updateUser(currentUser.id, currentUser).then(response => {
-                this.currentUserService.setCurrentUser(result.data)
-            });
+            if (result === 'created')
+                this.playlistCreated.emit();
         })
     }
 }

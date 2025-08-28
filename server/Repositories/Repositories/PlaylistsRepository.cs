@@ -52,7 +52,7 @@ public class PlaylistsRepository : IPlaylistsRepository
 
     public async Task<bool> UpdatePlaylist(Playlist playlist, string id)
     {
-        var filter = Builders<Playlist>.Filter.Eq(x => x.Id, id);
+        var filter = Builders<Playlist>.Filter.Eq(x => x.Id, new ObjectId(id));
         var update = Builders<Playlist>.Update
             .Set(x => x.status, playlist.status)
             .Set(x => x.CreatedAt, playlist.UpdatedAt)

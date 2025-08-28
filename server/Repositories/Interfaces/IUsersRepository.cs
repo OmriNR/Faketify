@@ -4,7 +4,7 @@ namespace Repositories.Interfaces;
 
 public interface IUsersRepository
 {
-    List<User> GetUsersById(List<string> ids, bool allowDeleted = false);
-    void CreateUser(User user);
-    bool UpdateUser(User user);
+    Task<List<User>> GetUsersById(List<string> ids, bool allowDeleted = false);
+    Task CreateUser(User user);
+    Task<string> DoesUserExist(User user);
 }

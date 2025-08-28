@@ -7,7 +7,7 @@ public class Song
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public ObjectId? Id { get; set; }
     
     [BsonElement("songName")]
     public string SongName { get; set; }
